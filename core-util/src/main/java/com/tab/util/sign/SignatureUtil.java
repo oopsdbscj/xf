@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * created by tab chan on 2017/11/29
  */
 public class SignatureUtil {
-    public static void textCurl(String appid, String appkey, String txt_sentence, String xParam_json) {
+    public static String textCurl(String appid, String appkey, String txt_sentence, String xParam_json) {
         long nowtime = System.currentTimeMillis();
         nowtime = TimeUnit.MILLISECONDS.toSeconds(nowtime);
         String xParam = "";
@@ -60,8 +60,14 @@ public class SignatureUtil {
                 "curl -iv  -XPOST http://" + baseurl + inf +
                 " -H \"X-Appid:" + appid + "\" -H \"X-CurTime:" + nowtime + "\" " +
                 " -H \"X-CheckSum:" + checkSum + "\"" +
-                " -H \"X-Param:" + xParam + "\" " +
+                " -H \"X-Param:" + xParam + "\"" +
                 " -d \"text=" + httpbody + "\"");
+        String curl = "curl -iv  -XPOST http://" + baseurl + inf +
+                " -H  X-Appid:" + appid + "  -H  X-CurTime:" + nowtime + "  " +
+                " -H  X-CheckSum:" + checkSum + " " +
+                " -H  X-Param:" + xParam + " " +
+                " -d  text=" + httpbody + " ";
+        return curl;
     }
 
     public static String md5BytesToHexString(byte[] bytes) {
